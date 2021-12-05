@@ -99,13 +99,10 @@
 		2305D8872752AA9C006E1763 /* GBShop */ = {
 			isa = PBXGroup;
 			children = (
-				2305D8882752AA9C006E1763 /* AppDelegate.swift */,
-				2305D88A2752AA9C006E1763 /* SceneDelegate.swift */,
-				2305D88C2752AA9C006E1763 /* ViewController.swift */,
-				2305D88E2752AA9C006E1763 /* Main.storyboard */,
-				2305D8912752AA9E006E1763 /* Assets.xcassets */,
-				2305D8932752AA9E006E1763 /* LaunchScreen.storyboard */,
-				2305D8962752AA9E006E1763 /* Info.plist */,
+				232D666E275375AD0066D0AF /* App */,
+				232D6673275375F80066D0AF /* Core */,
+				232D6674275376090066D0AF /* Resources */,
+				232D6675275376160066D0AF /* Environments */,
 			);
 			path = GBShop;
 			sourceTree = "<group>";
@@ -125,6 +122,73 @@
 				2305D8AB2752AA9E006E1763 /* GBShopUITestsLaunchTests.swift */,
 			);
 			path = GBShopUITests;
+			sourceTree = "<group>";
+		};
+		232D666E275375AD0066D0AF /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2305D8882752AA9C006E1763 /* AppDelegate.swift */,
+				2305D88A2752AA9C006E1763 /* SceneDelegate.swift */,
+				232D666F275375B60066D0AF /* BusinessLogic */,
+				232D6670275375CF0066D0AF /* Entity */,
+				232D6671275375DE0066D0AF /* Assembly */,
+				232D6672275375EB0066D0AF /* Flows */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		232D666F275375B60066D0AF /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
+		232D6670275375CF0066D0AF /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		232D6671275375DE0066D0AF /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		232D6672275375EB0066D0AF /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				2305D88C2752AA9C006E1763 /* ViewController.swift */,
+				2305D88E2752AA9C006E1763 /* Main.storyboard */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		232D6673275375F80066D0AF /* Core */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		232D6674275376090066D0AF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2305D8912752AA9E006E1763 /* Assets.xcassets */,
+				2305D8932752AA9E006E1763 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		232D6675275376160066D0AF /* Environments */ = {
+			isa = PBXGroup;
+			children = (
+				2305D8962752AA9E006E1763 /* Info.plist */,
+			);
+			path = Environments;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
