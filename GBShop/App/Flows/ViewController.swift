@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let newUser = NewUser(id: 123,
+        let newUser = NewUser(idUser: 123,
                               userName: "Somebody",
                               password: "mypassword",
                               email: "some@some.ru",

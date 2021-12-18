@@ -12,7 +12,7 @@ class UserData: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl = URL(string: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/")!
+    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
     
     init(
         errorParser: AbstractErrorParser,
@@ -39,18 +39,18 @@ extension UserData: UserDataRequestFactory {
 extension UserData {
     struct RegisterUser: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "registerUser.json"
+        let method: HTTPMethod = .post
+        let path: String = "register"
         
         let newUser: NewUser
         var parameters: Parameters? {
             return [
-                "id_user" : newUser.id,
-                "username" : newUser.userName,
+                "idUser" : newUser.idUser,
+                "userName" : newUser.userName,
                 "password" : newUser.password,
                 "email" : newUser.email,
                 "gender": newUser.gender,
-                "credit_card" : newUser.creditCard,
+                "creditCard" : newUser.creditCard,
                 "bio" : newUser.bio
             ]
         }
@@ -58,18 +58,18 @@ extension UserData {
     
     struct ChangeUserData: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "changeUserData.json"
+        let method: HTTPMethod = .post
+        let path: String = "changeUserData"
         
         let newUser: NewUser
         var parameters: Parameters? {
             return [
-                "id_user" : newUser.id,
-                "username" : newUser.userName,
+                "idUser" : newUser.idUser,
+                "userName" : newUser.userName,
                 "password" : newUser.password,
                 "email" : newUser.email,
                 "gender": newUser.gender,
-                "credit_card" : newUser.creditCard,
+                "creditCard" : newUser.creditCard,
                 "bio" : newUser.bio
             ]
         }
