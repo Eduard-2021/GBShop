@@ -27,6 +27,8 @@ class ViewController: UIViewController {
         logout(idUser: 123)
         register(newUser: newUser)
         changeData(newUser: newUser)
+        getCatalogData(pageNumber: 1, idCategory: 1)
+        getProduct(idProduct: 123)
         
     }
 
@@ -77,6 +79,39 @@ class ViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-    }  
+    }
+    
+    func getCatalogData(pageNumber: Int, idCategory: Int){
+        var catalogData = [OneItemOfCatalogData]()
+        let productRequestFactory = requestFactory.makeProductRequestFactory()
+        productRequestFactory.getCatalogData(pageNumber: pageNumber, idCategory: idCategory) {data in
+            guard let data = data else {
+                print("Ошибка")
+                return
+            }
+            
+            if let json = (try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))) as? [[String : AnyObject]] {
+                for item in json {
+                    let oneItem = OneItemOfCatalogData(idProduct: item[OneItemOfCatalogData.fieldName.idProduct.rawValue] as! Int, productName: item[OneItemOfCatalogData.fieldName.productName.rawValue] as! String, price: item[OneItemOfCatalogData.fieldName.price.rawValue] as! Int)
+                    catalogData.append(oneItem)
+                }
+            }
+            print("\n", catalogData, "\n")
+        }
+    }
+    
+    
+    func getProduct(idProduct: Int){
+        let productData = requestFactory.makeProductRequestFactory()
+        productData.getGoodById(idProduct:idProduct) {response in
+            switch response.result {
+            case .success(let login):
+                print(login, "\n")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }
 

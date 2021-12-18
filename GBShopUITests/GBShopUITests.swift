@@ -1,9 +1,4 @@
-//
-//  GBShopUITests.swift
-//  GBShopUITests
-//
-//  Created by Eduard on 27.11.2021.
-//
+
 
 import XCTest
 
@@ -40,3 +35,4 @@ class GBShopUITests: XCTestCase {
         }
     }
 }
+
