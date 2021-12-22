@@ -13,29 +13,41 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let newUser = NewUser(idUser: 123,
-                              userName: "Somebody",
-                              password: "mypassword",
-                              email: "some@some.ru",
-                              gender: "m",
-                              creditCard: "9872389-2424-234224-234",
-                              bio: "This is good! I think I will switch to another language")
-        
+        workWithData()
+    }
+    
+    // MARK: - Call all func
+    
+    private func workWithData(){
+        let newUser = createNewUser()
         login(userName: "Somebody", password: "mypassword")
-        print()
         logout(idUser: 123)
         register(newUser: newUser)
         changeData(newUser: newUser)
         getCatalogData(idCategory: 1)
         getOneProduct(idProduct: 123)
-
+        setGetDeleteComments()
+        addDeletePayGetBasket()
+    }
+    
+    private func createNewUser() -> NewUser {
+        return NewUser(
+                     idUser: 123,
+                     userName: "Somebody",
+                     password: "mypassword",
+                     email: "some@some.ru",
+                     gender: "m",
+                     creditCard: "9872389-2424-234224-234",
+                     bio: "This is good! I think I will switch to another language"
+               )
+               
+    }
+    
+    private func setGetDeleteComments(){
         
         let newComment = NewComment(idProduct: 123, commentatorName: "Сергей", commentDate: "19.12.21", comment: "Надежное изделие")
-        createNewComment(newComment: newComment){_ in}
-
         getCommentList(idProduct: 123) {_ in}
-        createNewComment(newComment: newComment) {isSuccess in
+        setNewComment(newComment: newComment) {isSuccess in
             if isSuccess {
                 print("Товар уже с новым комментарием:")
                 self.getCommentList(idProduct: 123) {oneProduct in
@@ -44,7 +56,9 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
+    }
+    
+    private func addDeletePayGetBasket() {
         getBasket(){
             self.addProductsBasket(productToAdd: AddProductToBasketRequest(idProduct: 123, productsNumber: 3)){
                 self.getBasket() {
@@ -57,8 +71,11 @@ class ViewController: UIViewController {
             }
         }
     }
+    
 
-    func login(userName: String, password: String){
+    // MARK: - AUTH
+    
+    private func login(userName: String, password: String){
         let auth = requestFactory.makeAuthRequestFatory()
         auth.login(userName: userName, password: password) { response in
             switch response.result {
@@ -70,7 +87,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func logout(idUser: Int){
+    private func logout(idUser: Int){
         let auth = requestFactory.makeAuthRequestFatory()
         auth.logout(idUser: idUser) { response in
             switch response.result {
@@ -82,8 +99,9 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: - Register and change data
     
-    func register(newUser: NewUser){
+    private func register(newUser: NewUser){
         let userData = requestFactory.makeUserDataRequestFatory()
         userData.register(newUser: newUser) {response in
             switch response.result {
@@ -95,7 +113,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func changeData(newUser: NewUser){
+    private func changeData(newUser: NewUser){
         let userData = requestFactory.makeUserDataRequestFatory()
         userData.changeData(newUser: newUser) {response in
             switch response.result {
@@ -107,7 +125,9 @@ class ViewController: UIViewController {
         }
     }
     
-    func getCatalogData(idCategory: Int){
+    // MARK: - Get catalog and product
+    
+    private func getCatalogData(idCategory: Int){
         let productData = requestFactory.makeProductRequestFactory()
         productData.getCatalogData(idCategory: idCategory) {response in
             switch response.result {
@@ -119,7 +139,7 @@ class ViewController: UIViewController {
         }
     }
         
-    func getOneProduct(idProduct: Int){
+    private func getOneProduct(idProduct: Int){
         let productData = requestFactory.makeProductRequestFactory()
         productData.getProductById(idProduct:idProduct) {response in
             switch response.result {
@@ -131,7 +151,9 @@ class ViewController: UIViewController {
         }
     }
     
-    func getCommentList(idProduct: Int, completion: @escaping (OneProduct?)-> Void) {
+    // MARK: - Work with comments
+    
+    private func getCommentList(idProduct: Int, completion: @escaping (OneProduct?)-> Void) {
         let сomments = requestFactory.makeCommentRequestFactory()
         сomments.getCommentList(idProduct:idProduct) {response in
             switch response.result {
@@ -145,7 +167,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func createNewComment(newComment: NewComment, completion: @escaping (Bool)-> Void){
+    private func setNewComment(newComment: NewComment, completion: @escaping (Bool)-> Void){
         let comments = requestFactory.makeCommentRequestFactory()
         comments.createNewComment(newComment: newComment) {response in
             switch response.result {
@@ -159,7 +181,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func deleteComment(idProduct: Int, idComment: UUID){
+    private func deleteComment(idProduct: Int, idComment: UUID){
         let comments = requestFactory.makeCommentRequestFactory()
         comments.deleteComment(idProduct: idProduct, idComment: idComment) {response in
             switch response.result {
@@ -171,8 +193,9 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: - Work with basket
     
-    func addProductsBasket(productToAdd: AddProductToBasketRequest, completion: @escaping () -> Void){
+    private func addProductsBasket(productToAdd: AddProductToBasketRequest, completion: @escaping () -> Void){
         let basket = requestFactory.makeBasketRequestFactory()
         basket.addProductsBasket(productToAdd:productToAdd) {response in
             switch response.result {
@@ -185,7 +208,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func deleteProductsBasket(productToDelete: DeleteProductFromBasketRequest, completion: @escaping () -> Void){
+    private func deleteProductsBasket(productToDelete: DeleteProductFromBasketRequest, completion: @escaping () -> Void){
         let basket = requestFactory.makeBasketRequestFactory()
         basket.deleteProductsBasket(productToDelete:productToDelete) {response in
             switch response.result {
@@ -198,7 +221,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func payBasket(amountFundsOnAccount: Int){
+    private func payBasket(amountFundsOnAccount: Int){
         let basket = requestFactory.makeBasketRequestFactory()
         basket.payBasket(amountFundsOnAccount:amountFundsOnAccount) {response in
             switch response.result {
@@ -210,7 +233,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func getBasket(completion: @escaping () -> Void){
+    private func getBasket(completion: @escaping () -> Void){
         let basket = requestFactory.makeBasketRequestFactory()
         basket.getBasket() {response in
             switch response.result {
