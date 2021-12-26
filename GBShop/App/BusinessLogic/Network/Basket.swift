@@ -27,8 +27,6 @@ class Basket: AbstractRequestFactory {
 extension Basket: BasketRequestFactory {
     
     func addProductsBasket(productToAdd: AddProductToBasketRequest, completionHandler: @escaping (AFDataResponse<AddProductToBasketResponse>) -> Void) {
-        
-//        let convertProductToAdd = try! productsToAdd.productsToAdd.asArrayDictionary()
         let requestModel = AddProductsBasket(baseUrl: baseUrl, productToAdd: productToAdd)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
