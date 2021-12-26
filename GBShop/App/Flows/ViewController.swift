@@ -27,10 +27,13 @@ class ViewController: UIViewController {
         logout(idUser: 123)
         register(newUser: newUser)
         changeData(newUser: newUser)
-        getCatalogData(pageNumber: 1, idCategory: 1)
-        getProduct(idProduct: 123)
+        getCatalogData(idCategory: 1)
+        getOneProduct(idProduct: 123)
+
         
-        let newComment = NewComment(idProduct: 123, commentatorName: "Семен", commentDate: "15.12.21", comment: "Ненадежный комп")
+        let newComment = NewComment(idProduct: 123, commentatorName: "Сергей", commentDate: "19.12.21", comment: "Надежное изделие")
+        createNewComment(newComment: newComment){_ in}
+
         getCommentList(idProduct: 123) {_ in}
         createNewComment(newComment: newComment) {isSuccess in
             if isSuccess {
@@ -38,6 +41,18 @@ class ViewController: UIViewController {
                 self.getCommentList(idProduct: 123) {oneProduct in
                     guard let oneProduct = oneProduct,  let lastComment = oneProduct.commentList.last else {return}
                         self.deleteComment(idProduct: 123, idComment: lastComment.idComment)
+                }
+            }
+        }
+        
+        getBasket(){
+            self.addProductsBasket(productToAdd: AddProductToBasketRequest(idProduct: 123, productsNumber: 3)){
+                self.getBasket() {
+                    self.deleteProductsBasket(productToDelete: DeleteProductFromBasketRequest(idProduct: 123, productsNumber: 1)) {
+                            self.getBasket() {
+                                self.payBasket(amountFundsOnAccount: 200000) //amountFundsOnAccount - это условное количество денег на счету у клиента
+                            }
+                    }
                 }
             }
         }
@@ -92,32 +107,24 @@ class ViewController: UIViewController {
         }
     }
     
-    func getCatalogData(pageNumber: Int, idCategory: Int){
-        var catalogData = [OneItemOfCatalogData]()
-        let productRequestFactory = requestFactory.makeProductRequestFactory()
-        productRequestFactory.getCatalogData(pageNumber: pageNumber, idCategory: idCategory) {data in
-            guard let data = data else {
-                print("Ошибка")
-                return
-            }
-            
-            if let json = (try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))) as? [[String : AnyObject]] {
-                for item in json {
-                    let oneItem = OneItemOfCatalogData(idProduct: item[OneItemOfCatalogData.fieldName.idProduct.rawValue] as! Int, productName: item[OneItemOfCatalogData.fieldName.productName.rawValue] as! String, price: item[OneItemOfCatalogData.fieldName.price.rawValue] as! Int)
-                    catalogData.append(oneItem)
-                }
-            }
-            print("Каталог товаров выкачан успешно. Полученен ответ: ", catalogData, "\n")
-        }
-    }
-    
-    
-    func getProduct(idProduct: Int){
+    func getCatalogData(idCategory: Int){
         let productData = requestFactory.makeProductRequestFactory()
-        productData.getGoodById(idProduct:idProduct) {response in
+        productData.getCatalogData(idCategory: idCategory) {response in
             switch response.result {
             case .success(let data):
-                print("Один товар с ресурса Geekbrains выкачан успешно. Полученен ответ: ", data, "\n")
+                print("Каталог товаров категории \(data.catalog[0].idCategory) с сервера выкачан успешно. Полученен ответ: ", data, "\n")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+        
+    func getOneProduct(idProduct: Int){
+        let productData = requestFactory.makeProductRequestFactory()
+        productData.getProductById(idProduct:idProduct) {response in
+            switch response.result {
+            case .success(let data):
+                print("Один товар с сервера выкачан успешно. Полученен ответ: ", data, "\n")
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -163,6 +170,59 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    
+    func addProductsBasket(productToAdd: AddProductToBasketRequest, completion: @escaping () -> Void){
+        let basket = requestFactory.makeBasketRequestFactory()
+        basket.addProductsBasket(productToAdd:productToAdd) {response in
+            switch response.result {
+            case .success(let data):
+                print("Товар добавлен в корзину успешно. Получен ответ: ", data, "\n")
+                completion()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func deleteProductsBasket(productToDelete: DeleteProductFromBasketRequest, completion: @escaping () -> Void){
+        let basket = requestFactory.makeBasketRequestFactory()
+        basket.deleteProductsBasket(productToDelete:productToDelete) {response in
+            switch response.result {
+            case .success(let data):
+                print("Товар удален с корзины успешно. Получен ответ: ", data, "\n")
+                completion()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func payBasket(amountFundsOnAccount: Int){
+        let basket = requestFactory.makeBasketRequestFactory()
+        basket.payBasket(amountFundsOnAccount:amountFundsOnAccount) {response in
+            switch response.result {
+            case .success(let data):
+                print("Товар оплачен успешно. У Вас на счету осталось: ", data.amountFundsOnAccount, "\n")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getBasket(completion: @escaping () -> Void){
+        let basket = requestFactory.makeBasketRequestFactory()
+        basket.getBasket() {response in
+            switch response.result {
+            case .success(let data):
+                print("Запрос на получение корзины выполнен успешно. Получен ответ: ", data, "\n")
+                completion()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
 }
 

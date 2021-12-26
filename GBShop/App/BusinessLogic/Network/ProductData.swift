@@ -12,7 +12,7 @@ class ProductData: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl = URL(string: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/")!
+    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
     
     
     init(
@@ -26,23 +26,15 @@ class ProductData: AbstractRequestFactory {
 }
 
 extension ProductData: ProductRequestFactory {
-    func getCatalogData(pageNumber: Int, idCategory: Int, completionHandler: @escaping (Data?) -> Void) {
-        let requestModel = GetCatalogData(baseUrl: baseUrl, pageNumber: pageNumber, idCategory: idCategory)
-        
-        AF.request(requestModel.fullUrl, method: requestModel.method, parameters: requestModel.parameters).responseData { [weak self] response in
-            switch response.result {
-                case .success(let data):
-                    completionHandler(data)
-                case .failure(let error):
-                    print(error)
-                    completionHandler(nil)
-            }
-        }
+    
+    func getCatalogData(idCategory: Int, completionHandler: @escaping (AFDataResponse<ProductCatalog>) -> Void) {
+        let requestModel = GetCatalogData(baseUrl: baseUrl, idCategory: idCategory)
+        self.request(request: requestModel, completionHandler: completionHandler)
         
     }
     
-    func getGoodById(idProduct: Int, completionHandler: @escaping (AFDataResponse<GetProductResult>) -> Void) {
-        let requestModel = GetGoodByIdData(baseUrl: baseUrl, idProduct: idProduct)
+    func getProductById(idProduct: Int, completionHandler: @escaping (AFDataResponse<OneProduct>) -> Void) {
+        let requestModel = GetProductByIdData(baseUrl: baseUrl, idProduct: idProduct)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
   
@@ -52,28 +44,26 @@ extension ProductData: ProductRequestFactory {
 extension ProductData {
     struct GetCatalogData: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "catalogData.json"
+        let method: HTTPMethod = .post
+        let path: String = "getCatalogData"
         
-        let pageNumber: Int
         let idCategory: Int
         var parameters: Parameters? {
             return [
-                "page_number" : pageNumber,
-                "id_category" : idCategory,
+                "idCategory" : idCategory,
             ]
         }
     }
     
-    struct GetGoodByIdData: RequestRouter {
+    struct GetProductByIdData: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "getGoodById.json"
+        let method: HTTPMethod = .post
+        let path: String = "getProductById"
         
         let idProduct: Int
         var parameters: Parameters? {
             return [
-                "id_product" : idProduct,
+                "idProduct" : idProduct,
             ]
         }
     }

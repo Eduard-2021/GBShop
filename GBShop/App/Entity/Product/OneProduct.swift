@@ -13,5 +13,6 @@ struct OneProduct: Codable {
     let productPrice: Int
     let productDescription: String
     var commentList: [OneComment]
+    let idCategory: Int
 
 }
