@@ -12,7 +12,7 @@ class Comments: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
+//    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
     
     
     init(
@@ -27,16 +27,19 @@ class Comments: AbstractRequestFactory {
 
 extension Comments: CommentRequestFactory {
     func getCommentList(idProduct: Int, completionHandler: @escaping (AFDataResponse<OneProduct>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = GetCommentList(baseUrl: baseUrl, idProduct: idProduct)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
     func createNewComment(newComment: NewComment, completionHandler: @escaping (AFDataResponse<NewCommentResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = CreateNewComment(baseUrl: baseUrl, newComment: newComment)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
     func deleteComment(idProduct: Int, idComment: UUID, completionHandler: @escaping (AFDataResponse<NewCommentResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = DeleteComment(baseUrl: baseUrl, idProduct: idProduct, idComment: idComment)
         self.request(request: requestModel, completionHandler: completionHandler)
     }

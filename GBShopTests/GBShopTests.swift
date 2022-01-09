@@ -23,7 +23,7 @@ class GBShopTests: XCTestCase {
 
     struct LoginResultStub: Codable {
         let result: String
-        let user: User
+        let user: NewUser
         let authToken: String
     }
     
@@ -112,7 +112,7 @@ class GBShopTests: XCTestCase {
         AF.request("http://secret-escarpment-71481.herokuapp.com/login", method: .post, parameters: parameters).responseCodable(errorParser: errorParser) {(response: DataResponse<LoginResultStub, AFError>) in
             switch response.result {
                 case .success(let data):
-                if (data.user.idUser != 123) || (data.user.login != "geekbrains") || (data.user.name != "John") || (data.user.lastname != "Doe") {
+                if (data.user.idUser != 0) || (data.user.userName != "") || (data.user.email != "") {
                     XCTFail()
                 }
                 break

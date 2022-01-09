@@ -12,4 +12,6 @@ protocol UserDataRequestFactory {
     func register(newUser: NewUser, completionHandler: @escaping (AFDataResponse<RegisterResult>) -> Void)
     
     func changeData(newUser: NewUser, completionHandler: @escaping (AFDataResponse<ChangeDataResult>) -> Void)
+    
+    func numberOfUsers(completionHandler: @escaping (AFDataResponse<NumberOfUsersResult>) -> Void)
 }

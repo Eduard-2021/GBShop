@@ -12,7 +12,7 @@ class Basket: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
+//    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
     
     init(
         errorParser: AbstractErrorParser,
@@ -21,27 +21,32 @@ class Basket: AbstractRequestFactory {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
+       
     }
 }
 
 extension Basket: BasketRequestFactory {
     
     func addProductsBasket(productToAdd: AddProductToBasketRequest, completionHandler: @escaping (AFDataResponse<AddProductToBasketResponse>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = AddProductsBasket(baseUrl: baseUrl, productToAdd: productToAdd)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
     func deleteProductsBasket(productToDelete: DeleteProductFromBasketRequest, completionHandler: @escaping (AFDataResponse<DeleteProductFromBasketResponse>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = DeleteProductsBasket(baseUrl: baseUrl, productToDelete: productToDelete)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
     func payBasket(amountFundsOnAccount: Int, completionHandler: @escaping (AFDataResponse<PayBasketResponse>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = PayBasket(baseUrl: baseUrl, amountFundsOnAccount: amountFundsOnAccount)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
     func getBasket(completionHandler: @escaping (AFDataResponse<GetBasketResponse>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = GetBasket(baseUrl: baseUrl)
         self.request(request: requestModel, completionHandler: completionHandler)
     }

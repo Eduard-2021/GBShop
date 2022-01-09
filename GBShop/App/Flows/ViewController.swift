@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginViaPhoneNumberViewController.swift
 //  GBShop
 //
 //  Created by Eduard on 27.11.2021.
@@ -7,245 +7,80 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViaPhoneNumberViewController: UIViewController {
     
-    let requestFactory = RequestFactory()
+    @IBOutlet weak var phoneNumberFromTextField: UITextField!
+    @IBOutlet weak var passwordFromTextField: UITextField!
+    @IBOutlet weak var flagImage: UIImageView!
+    @IBOutlet weak var codeCountryLabel: UILabel!
+    @IBOutlet weak var selectCountryPickerView: UIPickerView!
     
+    
+    @IBAction func turnToEmailAuth(_ sender: Any) {
+    }
+    
+    @IBAction func phoneNumberEntered(_ sender: Any) {
+    }
+    
+    @IBAction func passwordEntered(_ sender: Any) {
+    }
+    
+    @IBAction func loginButtonPressed(_ sender: Any) {
+        
+        
+        
+        
+    }
+    
+    @IBAction func changeCountryButtonPressed(_ sender: Any) {
+        selectCountryPickerView.isHidden = false
+        guard let currentCounty = Constant.shared.countryDialingCodes.firstIndex(where: {$0.0.contains(codeCountryLabel.text ?? "")}) else {return}
+        selectCountryPickerView.selectRow(currentCounty, inComponent: 0, animated: false)
+    }
+    
+    @IBAction func registerButtonPressed(_ sender: Any) {
+    }
+    
+    private let homeworkCallFromOneToSix = HomeworkCallFromOneToSix()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        workWithData()
-    }
-    
-    // MARK: - Call all func
-    
-    private func workWithData(){
-        let newUser = createNewUser()
-        login(userName: "Somebody", password: "mypassword")
-        logout(idUser: 123)
-        register(newUser: newUser)
-        changeData(newUser: newUser)
-        getCatalogData(idCategory: 1)
-        getOneProduct(idProduct: 123)
-        setGetDeleteComments()
-        addDeletePayGetBasket()
-    }
-    
-    private func createNewUser() -> NewUser {
-        return NewUser(
-                     idUser: 123,
-                     userName: "Somebody",
-                     password: "mypassword",
-                     email: "some@some.ru",
-                     gender: "m",
-                     creditCard: "9872389-2424-234224-234",
-                     bio: "This is good! I think I will switch to another language"
-               )
-               
-    }
-    
-    private func setGetDeleteComments(){
+        selectCountryPickerView.dataSource = self
+        selectCountryPickerView.delegate = self
         
-        let newComment = NewComment(idProduct: 123, commentatorName: "Сергей", commentDate: "19.12.21", comment: "Надежное изделие")
-        getCommentList(idProduct: 123) {_ in}
-        setNewComment(newComment: newComment) {isSuccess in
-            if isSuccess {
-                print("Товар уже с новым комментарием:")
-                self.getCommentList(idProduct: 123) {oneProduct in
-                    guard let oneProduct = oneProduct,  let lastComment = oneProduct.commentList.last else {return}
-                        self.deleteComment(idProduct: 123, idComment: lastComment.idComment)
-                }
-            }
-        }
+//        homeworkCallFromOneToSix.callAll()
     }
-    
-    private func addDeletePayGetBasket() {
-        getBasket(){
-            self.addProductsBasket(productToAdd: AddProductToBasketRequest(idProduct: 123, productsNumber: 3)){
-                self.getBasket() {
-                    self.deleteProductsBasket(productToDelete: DeleteProductFromBasketRequest(idProduct: 123, productsNumber: 1)) {
-                            self.getBasket() {
-                                self.payBasket(amountFundsOnAccount: 200000) //amountFundsOnAccount - это условное количество денег на счету у клиента
-                            }
-                    }
-                }
-            }
-        }
-    }
-    
-
-    // MARK: - AUTH
-    
-    private func login(userName: String, password: String){
-        let auth = requestFactory.makeAuthRequestFatory()
-        auth.login(userName: userName, password: password) { response in
-            switch response.result {
-            case .success(let login):
-                print("Аунтефикация прошла успешно. Полученен ответ: ", login, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    private func logout(idUser: Int){
-        let auth = requestFactory.makeAuthRequestFatory()
-        auth.logout(idUser: idUser) { response in
-            switch response.result {
-            case .success(let data):
-                print("Выход с системы прошел успешно. Полученен ответ: ", data, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    // MARK: - Register and change data
-    
-    private func register(newUser: NewUser){
-        let userData = requestFactory.makeUserDataRequestFatory()
-        userData.register(newUser: newUser) {response in
-            switch response.result {
-            case .success(let data):
-                print("Регистрация прошла успешно. Полученен ответ: ", data, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    private func changeData(newUser: NewUser){
-        let userData = requestFactory.makeUserDataRequestFatory()
-        userData.changeData(newUser: newUser) {response in
-            switch response.result {
-            case .success(let data):
-                print("Регистрационные данные изменены успешно. Полученен ответ: ", data, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    // MARK: - Get catalog and product
-    
-    private func getCatalogData(idCategory: Int){
-        let productData = requestFactory.makeProductRequestFactory()
-        productData.getCatalogData(idCategory: idCategory) {response in
-            switch response.result {
-            case .success(let data):
-                print("Каталог товаров категории \(data.catalog[0].idCategory) с сервера выкачан успешно. Полученен ответ: ", data, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-        
-    private func getOneProduct(idProduct: Int){
-        let productData = requestFactory.makeProductRequestFactory()
-        productData.getProductById(idProduct:idProduct) {response in
-            switch response.result {
-            case .success(let data):
-                print("Один товар с сервера выкачан успешно. Полученен ответ: ", data, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    // MARK: - Work with comments
-    
-    private func getCommentList(idProduct: Int, completion: @escaping (OneProduct?)-> Void) {
-        let сomments = requestFactory.makeCommentRequestFactory()
-        сomments.getCommentList(idProduct:idProduct) {response in
-            switch response.result {
-            case .success(let data):
-                completion(data)
-                print("С сервера извлечены все данные по товару, в т.ч. комментарии. Полученен ответ: ", data, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-                completion(nil)
-            }
-        }
-    }
-    
-    private func setNewComment(newComment: NewComment, completion: @escaping (Bool)-> Void){
-        let comments = requestFactory.makeCommentRequestFactory()
-        comments.createNewComment(newComment: newComment) {response in
-            switch response.result {
-            case .success(let data):
-                print("Новый комментарий внесен успешно. Полученен ответ: ", data, "\n")
-                completion(true)
-            case .failure(let error):
-                print(error.localizedDescription)
-                completion(false)
-            }
-        }
-    }
-    
-    private func deleteComment(idProduct: Int, idComment: UUID){
-        let comments = requestFactory.makeCommentRequestFactory()
-        comments.deleteComment(idProduct: idProduct, idComment: idComment) {response in
-            switch response.result {
-            case .success(let data):
-                print("Комментарий удален успешно. Полученен ответ: ", data, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    // MARK: - Work with basket
-    
-    private func addProductsBasket(productToAdd: AddProductToBasketRequest, completion: @escaping () -> Void){
-        let basket = requestFactory.makeBasketRequestFactory()
-        basket.addProductsBasket(productToAdd:productToAdd) {response in
-            switch response.result {
-            case .success(let data):
-                print("Товар добавлен в корзину успешно. Получен ответ: ", data, "\n")
-                completion()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    private func deleteProductsBasket(productToDelete: DeleteProductFromBasketRequest, completion: @escaping () -> Void){
-        let basket = requestFactory.makeBasketRequestFactory()
-        basket.deleteProductsBasket(productToDelete:productToDelete) {response in
-            switch response.result {
-            case .success(let data):
-                print("Товар удален с корзины успешно. Получен ответ: ", data, "\n")
-                completion()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    private func payBasket(amountFundsOnAccount: Int){
-        let basket = requestFactory.makeBasketRequestFactory()
-        basket.payBasket(amountFundsOnAccount:amountFundsOnAccount) {response in
-            switch response.result {
-            case .success(let data):
-                print("Товар оплачен успешно. У Вас на счету осталось: ", data.amountFundsOnAccount, "\n")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    private func getBasket(completion: @escaping () -> Void){
-        let basket = requestFactory.makeBasketRequestFactory()
-        basket.getBasket() {response in
-            switch response.result {
-            case .success(let data):
-                print("Запрос на получение корзины выполнен успешно. Получен ответ: ", data, "\n")
-                completion()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    
 }
 
+
+extension ViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Constant.shared.countryDialingCodes.count
+    }
+}
+
+
+extension ViewController: UIPickerViewDelegate {
+
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let titleData = Constant.shared.countryDialingCodes[row].0
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        return myTitle
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let codeInSubSequense = Constant.shared.countryDialingCodes[row].0.split(separator: " ").last else {return}
+        let fileName = Constant.shared.countryDialingCodes[row].1
+        let codeInString = String(codeInSubSequense)
+        
+        flagImage.image = UIImage(named: fileName)
+        codeCountryLabel.text = codeInString
+        
+        selectCountryPickerView.isHidden = true
+    }
+}

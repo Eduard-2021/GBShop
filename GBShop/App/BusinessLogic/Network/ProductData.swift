@@ -12,7 +12,7 @@ class ProductData: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
+//    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
     
     
     init(
@@ -28,12 +28,14 @@ class ProductData: AbstractRequestFactory {
 extension ProductData: ProductRequestFactory {
     
     func getCatalogData(idCategory: Int, completionHandler: @escaping (AFDataResponse<ProductCatalog>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = GetCatalogData(baseUrl: baseUrl, idCategory: idCategory)
         self.request(request: requestModel, completionHandler: completionHandler)
         
     }
     
     func getProductById(idProduct: Int, completionHandler: @escaping (AFDataResponse<OneProduct>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = GetProductByIdData(baseUrl: baseUrl, idProduct: idProduct)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
