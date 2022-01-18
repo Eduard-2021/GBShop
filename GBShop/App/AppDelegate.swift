@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        if let baseUrl = URL(string: "http://127.0.0.1:8080/") {
+//        if let baseUrl = URL(string: "http://127.0.0.1:8080/") {
+        if let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/") {
+            
             Constant.shared.baseURL = baseUrl
             window?.rootViewController = CreateTabBarController()
         }

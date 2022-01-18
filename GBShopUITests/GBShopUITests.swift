@@ -1,5 +1,4 @@
 
-
 import XCTest
 
 class GBShopUITests: XCTestCase {
@@ -35,4 +34,3 @@ class GBShopUITests: XCTestCase {
         }
     }
 }
-

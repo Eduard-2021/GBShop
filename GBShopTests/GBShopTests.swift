@@ -1,3 +1,4 @@
+
 //
 //  GBShopTests.swift
 //  GBShopTests
@@ -353,6 +354,4 @@ class GBShopTests: XCTestCase {
     }
 
 }
-
-
 

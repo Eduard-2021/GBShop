@@ -13,7 +13,7 @@ class LoginViaEmailViewController: UIViewController, Storyboardable {
     weak var tabBarVC: CreateTabBarController?
     
     private let homeworkCallFromOneToSix = HomeworkCallFromOneToSix()
-    private let authAndRegistration = AuthAndRegistration()
+    private let authAndRegistration = AuthRegistrationAndWorkWithProducts()
     
     @IBOutlet weak var outletLoginButton: UIButton!
     @IBOutlet weak var emailFromTextField: UITextField!

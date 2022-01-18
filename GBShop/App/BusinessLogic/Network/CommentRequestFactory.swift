@@ -14,6 +14,8 @@ protocol CommentRequestFactory {
     
     func createNewComment(newComment: NewComment, completionHandler: @escaping (AFDataResponse<NewCommentResult>) -> Void)
     
+    func uploadAllCommentsOfProduct(allCommentsOfProduct: UploadAllCommentsOfProductRequest, completionHandler: @escaping (AFDataResponse<NewCommentResult>) -> Void)
+    
     func deleteComment(idProduct: Int, idComment: UUID, completionHandler: @escaping (AFDataResponse<NewCommentResult>) -> Void)
     
 }

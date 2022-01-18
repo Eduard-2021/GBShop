@@ -29,7 +29,7 @@ class RequestFactory {
         return Auth(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue)
     }
     
-    func makeUserDataRequestFatory() -> UserDataRequestFactory {
+    func makeUserDataRequestFactory() -> UserDataRequestFactory {
         let errorParser = makeErrorParser()
         return UserData(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue)
     }
@@ -48,6 +48,10 @@ class RequestFactory {
         let errorParser = makeErrorParser()
         return Basket(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue)
     }
-
     
+    func makeCategoryRequestFactory() -> CategoryRequestFactory {
+        let errorParser = makeErrorParser()
+        return CategoryClass(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue)
+    }
+
 }

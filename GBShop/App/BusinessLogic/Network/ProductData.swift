@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 class ProductData: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
@@ -39,7 +40,41 @@ extension ProductData: ProductRequestFactory {
         let requestModel = GetProductByIdData(baseUrl: baseUrl, idProduct: idProduct)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
-  
+    
+    func getProductByCategory(idCategory: Int, completionHandler: @escaping (AFDataResponse<AllProductsSomeCategoryResponse>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
+        let requestModel = GetProductByCatogoryData(baseUrl: baseUrl, idCategory: idCategory)
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
+    
+    func getProductByPromotion(promotion: Int, completionHandler: @escaping (AFDataResponse<AllProductsWithPromotionResponse>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
+        let requestModel = GetProductByPromotionData(baseUrl: baseUrl, promotion: promotion)
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
+    
+    func uploadProductToServer(oneProduct: OneProduct, completionHandler: @escaping (AFDataResponse<UploadProductToServerResponse>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
+        let requestModel = UploadProductToServerRequest(baseUrl: baseUrl)
+        self.upload(
+            multipartFormData:{ multipartFormData in
+                guard let idProduct = oneProduct.idProduct.description.data(using: .utf8),
+                      let productPrice = oneProduct.productPrice.description.data(using: .utf8),
+                      let idCategory = oneProduct.idCategory.description.data(using: .utf8),
+                      let promotion = oneProduct.promotion.description.data(using: .utf8)
+                else {return}
+                 
+                multipartFormData.append(idProduct, withName: "idProduct")
+                multipartFormData.append(oneProduct.productName.data(using: .utf8, allowLossyConversion: false)!, withName: "productName")
+                multipartFormData.append(productPrice, withName: "productPrice")
+                multipartFormData.append(oneProduct.productDescription.data(using: .utf8, allowLossyConversion: false)!, withName: "productDescription")
+                multipartFormData.append(idCategory, withName: "idCategory")
+                multipartFormData.append(promotion, withName: "promotion")
+                multipartFormData.append(oneProduct.productImage, withName: requestModel.key)
+            },
+            to: requestModel,
+            completionHandler: completionHandler)
+    }
 }
 
 
@@ -65,9 +100,47 @@ extension ProductData {
         let idProduct: Int
         var parameters: Parameters? {
             return [
-                "idProduct" : idProduct,
+                "idProduct" : [idProduct],
             ]
         }
     }
     
+    struct UploadProductToServerRequest: URLConvertible {
+        let baseUrl: URL
+        let path: String = "uploadProductToServer"
+        func asURL() throws -> URL {
+            return baseUrl.appendingPathComponent(path)
+        }
+        let key = "productImage"
+    }
+    
+    
+    
+    struct GetProductByCatogoryData: RequestRouter {
+        let baseUrl: URL
+        let method: HTTPMethod = .post
+        let path: String = "getProductByCategory"
+        
+        let idCategory: Int
+        var parameters: Parameters? {
+            return [
+                "idCategory" : idCategory
+            ]
+        }
+    }
+    
+    struct GetProductByPromotionData: RequestRouter {
+        let baseUrl: URL
+        let method: HTTPMethod = .post
+        let path: String = "getProductByPromotion"
+        
+        let promotion: Int
+        var parameters: Parameters? {
+            return [
+                "promotion" : promotion
+            ]
+        }
+    }
 }
+
+

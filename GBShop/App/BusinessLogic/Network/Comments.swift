@@ -38,6 +38,12 @@ extension Comments: CommentRequestFactory {
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
+    func uploadAllCommentsOfProduct(allCommentsOfProduct: UploadAllCommentsOfProductRequest, completionHandler: @escaping (AFDataResponse<NewCommentResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
+        let requestModel = AllCommentsOfProduct(baseUrl: baseUrl, allCommentsOfProduct: allCommentsOfProduct)
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
+    
     func deleteComment(idProduct: Int, idComment: UUID, completionHandler: @escaping (AFDataResponse<NewCommentResult>) -> Void) {
         guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = DeleteComment(baseUrl: baseUrl, idProduct: idProduct, idComment: idComment)
@@ -75,6 +81,23 @@ extension Comments {
             ]
         }
     }
+    
+    struct AllCommentsOfProduct: RequestRouter {
+        let baseUrl: URL
+        let method: HTTPMethod = .post
+        let path: String = "uploadAllCommentsOfProduct"
+        
+        let allCommentsOfProduct: UploadAllCommentsOfProductRequest
+        var parameters: Parameters? {
+            return [
+                "idProduct" : allCommentsOfProduct.idProduct,
+                "commentatorsNames": allCommentsOfProduct.commentatorsNames,
+                "commentDate": allCommentsOfProduct.commentDate,
+                "comments": allCommentsOfProduct.comments
+            ]
+        }
+    }
+    
     
     struct DeleteComment: RequestRouter {
         let baseUrl: URL

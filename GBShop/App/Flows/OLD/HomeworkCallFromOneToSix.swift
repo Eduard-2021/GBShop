@@ -55,8 +55,10 @@ class HomeworkCallFromOneToSix {
             if isSuccess {
                 print("Товар уже с новым комментарием:")
                 self.getCommentList(idProduct: 123) {oneProduct in
-                    guard let oneProduct = oneProduct,  let lastComment = oneProduct.commentList.last else {return}
-                        self.deleteComment(idProduct: 123, idComment: lastComment.idComment)
+                    guard let oneProduct = oneProduct
+//                            ,let lastComment = oneProduct.commentList.last
+                    else {return}
+//                        self.deleteComment(idProduct: 123, idComment: lastComment.idComment)
                 }
             }
         }
@@ -118,7 +120,7 @@ class HomeworkCallFromOneToSix {
     // MARK: - Register and change data
     
     private func register(newUser: NewUser){
-        let userData = requestFactory.makeUserDataRequestFatory()
+        let userData = requestFactory.makeUserDataRequestFactory()
         userData.register(newUser: newUser) {response in
             switch response.result {
             case .success(let data):
@@ -130,7 +132,7 @@ class HomeworkCallFromOneToSix {
     }
     
     private func changeData(newUser: NewUser){
-        let userData = requestFactory.makeUserDataRequestFatory()
+        let userData = requestFactory.makeUserDataRequestFactory()
         userData.changeData(newUser: newUser) {response in
             switch response.result {
             case .success(let data):

@@ -12,7 +12,7 @@ class ChangeDataViewController: UIViewController, Storyboardable {
     weak var tabBarVC: CreateTabBarController?
     
     private let homeworkCallFromOneToSix = HomeworkCallFromOneToSix()
-    private let authAndRegistration = AuthAndRegistration()
+    private let authAndRegistration = AuthRegistrationAndWorkWithProducts()
     private var selectRow = 1
     
     @IBOutlet weak var phoneNumberFromTextField: UITextField!
