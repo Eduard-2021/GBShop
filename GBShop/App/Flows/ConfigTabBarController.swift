@@ -11,6 +11,7 @@ class CreateTabBarController: UITabBarController {
 
     let authAndRegisterCoordinator = AuthAndRegisterCoordinator()
     let catalogAndProductsCoordinator = CatalogAndProductsCoordinator()
+    let mainAndProductsCoordinator = MainAndProductsCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,10 +20,10 @@ class CreateTabBarController: UITabBarController {
     
     func start() {
         authAndRegisterCoordinator.tabBarVC = self
-        catalogAndProductsCoordinator .tabBarVC = self
+        catalogAndProductsCoordinator.tabBarVC = self
         
         var controllers = [UIViewController]()
-        let mainViewController = MainViewController.createObject()
+        let mainViewController = mainAndProductsCoordinator.start()
         let сatalogViewController = catalogAndProductsCoordinator.start()
         let loginViaPhoneNumberViewController = authAndRegisterCoordinator.start()
         let basketViewController = BasketViewController.createObject()

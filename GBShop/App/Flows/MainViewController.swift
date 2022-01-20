@@ -16,6 +16,8 @@ class MainViewController: UIViewController, Storyboardable {
     
     let uploadUsingURLSessionAPI = UploadUsingURLSessionAPI()
     
+    weak var coordinator: MainAndProductsCoordinator?
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     

@@ -92,4 +92,9 @@ extension ProductsViewController: UICollectionViewDelegate, UICollectionViewData
         return CGSize(width: width, height: height)
     }
     
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        coordinator?.openProductDescriptionViewController(product: allProducts[indexPath.row])
+    }
+    
 }
