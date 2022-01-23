@@ -10,7 +10,7 @@ import UIKit
 class ProductDescriptionViewController: UIViewController, Storyboardable  {
     
     let authRegistrationAndWorkWithProducts = AuthRegistrationAndWorkWithProducts()
-    weak var coordinator: CatalogAndProductsCoordinator?
+    var coordinator: DescriptionAndReviewsProtocol?
     var product: OneProduct? = nil
     
     @IBOutlet weak var aboutProductButtonOutlet: UIButton!
@@ -39,8 +39,10 @@ class ProductDescriptionViewController: UIViewController, Storyboardable  {
         productNameLabel.text = product.productName
         costLabel.text = String(product.productPrice)
         carencyLabel.text = "₴"
-        unitLabel.text = "шт"
+        unitLabel.text = "за шт"
         descriptionLabel.text = product.productDescription
-
+        
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.topItem?.title = ""
     }
 }

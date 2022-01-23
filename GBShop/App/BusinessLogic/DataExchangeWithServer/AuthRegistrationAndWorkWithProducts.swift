@@ -9,7 +9,7 @@ import UIKit
 
 class AuthRegistrationAndWorkWithProducts {
     
-    var loginAndRegisterViewControllerDelegate: AuthAndRegisterProtocol!
+    var loginAndRegisterViewControllerDelegate: UnCorrectLoginPaswordOrEmptyFieldProtocol!
     
     private let requestFactory = RequestFactory()
     
@@ -180,6 +180,21 @@ class AuthRegistrationAndWorkWithProducts {
                 }
             }
 
+    }
+    
+    
+    func getOneProduct(idProduct: Int, complition: @escaping (OneProduct?) -> Void){
+        let productData = requestFactory.makeProductRequestFactory()
+        productData.getProductById(idProduct:idProduct) {response in
+            switch response.result {
+            case .success(let data):
+                print("Один товар с сервера выкачан успешно. Полученен ответ: ", data, "\n")
+                complition(data)
+            case .failure(let error):
+                print(error.localizedDescription)
+                complition(nil)
+            }
+        }
     }
     
     //MARK: Work wirh comments

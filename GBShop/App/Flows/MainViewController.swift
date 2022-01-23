@@ -84,7 +84,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCellForMainVC", for: indexPath) as! CollectionViewCellForMainVC
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCellForMainVC", for: indexPath) as? CollectionViewCellForMainVC
+        else {return UICollectionViewCell()}
         cell.config(oneProduct: allProducts[indexPath.row])
         
         return cell
@@ -97,7 +98,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let numberCol = 2
         
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {return CGSize()}
         let totalSpace = flowLayout.sectionInset.left
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(numberCol - 1))
@@ -106,6 +107,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return CGSize(width: width, height: height)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        coordinator?.openProductDescriptionViewController(product: allProducts[indexPath.row])
+    }
 }
 
 //extension UICollectionView {

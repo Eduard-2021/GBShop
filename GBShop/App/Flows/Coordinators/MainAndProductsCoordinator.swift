@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainAndProductsCoordinator: Coordinator {
+class MainAndProductsCoordinator: Coordinator, DescriptionAndReviewsProtocol {
     var navigationController = UINavigationController()
     weak var tabBarVC: CreateTabBarController?
 
@@ -16,12 +16,5 @@ class MainAndProductsCoordinator: Coordinator {
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
         return navigationController
-    }
-    
-    func openProductDescriptionViewController(product: OneProduct){
-        let vc = ProductDescriptionViewController.createObject()
-        vc.product = product
-        vc.coordinator = CatalogAndProductsCoordinator()
-        navigationController.pushViewController(vc, animated: false)
     }
 }

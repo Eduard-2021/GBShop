@@ -77,7 +77,11 @@ extension Comments {
                 "idProduct" : newComment.idProduct,
                 "commentatorName": newComment.commentatorName,
                 "commentDate": newComment.commentDate,
-                "comment": newComment.comment
+                "comment": newComment.comment,
+                "score": newComment.score,
+                "liked": newComment.liked,
+                "noLiked": newComment.noLiked,
+                "userExperienсe": newComment.userExperienсe
             ]
         }
     }
@@ -94,6 +98,10 @@ extension Comments {
                 "commentatorsNames": allCommentsOfProduct.commentatorsNames,
                 "commentDate": allCommentsOfProduct.commentDate,
                 "comments": allCommentsOfProduct.comments
+//                "score": newComment.score,
+//                "liked": newComment.liked,
+//                "noLiked": newComment.noLiked,
+//                "userExperienсe": newComment.userExperienсe
             ]
         }
     }

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class AuthAndRegisterCoordinator: Coordinator {
+class AuthAndRegisterCoordinator: Coordinator, AuthAndRegisterProtocol {
     var navigationController = UINavigationController()
-    weak var tabBarVC: CreateTabBarController?
+    var tabBarVC: CreateTabBarController?
 
     func start() -> UIViewController {
         let vc = ViewController.createObject()
@@ -17,25 +17,5 @@ class AuthAndRegisterCoordinator: Coordinator {
         vc.tabBarVC = tabBarVC
         navigationController.pushViewController(vc, animated: false)
         return navigationController
-    }
-    
-    func openLoginViaEmailViewController(){
-        let vc = LoginViaEmailViewController.createObject()
-        vc.coordinator = self
-        navigationController.pushViewController(vc, animated: false)
-    }
-    
-    func openLoginViaPhotoNumberViewController() {
-        let vc = ViewController.createObject()
-        vc.coordinator = self
-        vc.tabBarVC = tabBarVC
-        navigationController.pushViewController(vc, animated: false)
-    }
-    
-    func openRegisterViewController() {
-        let vc = RegisterViewController.createObject()
-        vc.coordinator = self
-        vc.tabBarVC = tabBarVC
-        navigationController.pushViewController(vc, animated: false)
     }
 }

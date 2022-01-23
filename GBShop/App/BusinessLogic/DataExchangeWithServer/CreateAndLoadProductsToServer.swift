@@ -93,7 +93,16 @@ class CreateAndLoadProductsToServer {
                             score: 3.5,
                             liked: "Понравился запах",
                             noLiked: "Дорого",
-                            userExperienсe:"10 дней")
+                            userExperienсe:"10 дней"),
+                        OneComment(
+                            idComment: UUID(),
+                            commentatorName: "Антон",
+                            commentDate: "02.12.21",
+                            comment: "Сыр слишком горький",
+                            score: 2.5,
+                            liked: "Цвет",
+                            noLiked: "Дорого",
+                            userExperienсe:"1 день")
                        ],
                        idCategory: 5,
                        productImage: imagesOfProductInDataFormat[3],

@@ -21,6 +21,7 @@ class CreateTabBarController: UITabBarController {
     func start() {
         authAndRegisterCoordinator.tabBarVC = self
         catalogAndProductsCoordinator.tabBarVC = self
+        mainAndProductsCoordinator.tabBarVC = self
         
         var controllers = [UIViewController]()
         let mainViewController = mainAndProductsCoordinator.start()
@@ -50,7 +51,7 @@ class CreateTabBarController: UITabBarController {
         self.tabBar.backgroundImage = UIImage()
     }
     
-    func authAndRegisterCompleted() {
+    func authAndRegisterCompleted(isCreatingReview: Bool) {
         Constant.shared.isAuth = true
         DispatchQueue.main.async {
             let allViewControllersOfTabBar = self.viewControllers
@@ -75,7 +76,7 @@ class CreateTabBarController: UITabBarController {
             guard let items = self.tabBar.items else {return}
             items[AuthOrChangeDataViewControllerNumber].image = UIImage(systemName: "person")
         
-            self.selectedIndex = 0
+            if !isCreatingReview { self.selectedIndex = 0}
         }
     }
     

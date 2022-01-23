@@ -36,9 +36,10 @@
 		2315AF59277A1762001086DF /* HomeworkCallFromOneToSix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2315AF58277A1762001086DF /* HomeworkCallFromOneToSix.swift */; };
 		2315AF5B277A5192001086DF /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2315AF5A277A5192001086DF /* Constant.swift */; };
 		2315AF5E277A68CE001086DF /* AuthRegistrationAndWorkWithProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2315AF5D277A68CE001086DF /* AuthRegistrationAndWorkWithProducts.swift */; };
-		2315AF61277A6CB5001086DF /* AuthAndRegisterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2315AF60277A6CB5001086DF /* AuthAndRegisterProtocol.swift */; };
+		2315AF61277A6CB5001086DF /* UnCorrectLoginPaswordOrEmptyFieldProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2315AF60277A6CB5001086DF /* UnCorrectLoginPaswordOrEmptyFieldProtocol.swift */; };
 		2319D7B4278F5FD000302AE3 /* AllProductsWithPromotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2319D7B3278F5FD000302AE3 /* AllProductsWithPromotionRequest.swift */; };
 		2319D7B6278F5FEB00302AE3 /* AllProductsWithPromotionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2319D7B5278F5FEB00302AE3 /* AllProductsWithPromotionResponse.swift */; };
+		231BD147279CB2D500AE671E /* CreatingReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231BD146279CB2D500AE671E /* CreatingReviewViewController.swift */; };
 		231C41CF27930C47005B1072 /* UploadProductImageToServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231C41CE27930C47005B1072 /* UploadProductImageToServerResponse.swift */; };
 		231CCD0D2789AD0D0095BF37 /* ChangeDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231CCD0C2789AD0D0095BF37 /* ChangeDataViewController.swift */; };
 		231DB098276FA2740004B26C /* AddProductsBasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DB097276FA2740004B26C /* AddProductsBasketRequest.swift */; };
@@ -55,6 +56,8 @@
 		231E6B87278E21C00003DFA7 /* CreateAndLoadProductsToServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231E6B86278E21C00003DFA7 /* CreateAndLoadProductsToServer.swift */; };
 		231E6B89278E26830003DFA7 /* AllProductsSomeCategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231E6B88278E26830003DFA7 /* AllProductsSomeCategoryRequest.swift */; };
 		231E6B8B278E26B20003DFA7 /* AllProductsSomeCategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231E6B8A278E26B20003DFA7 /* AllProductsSomeCategoryResponse.swift */; };
+		231F89FA279DA17D00331F4C /* DescriptionAndReviewsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231F89F9279DA17C00331F4C /* DescriptionAndReviewsProtocol.swift */; };
+		231F89FC279DA75300331F4C /* AuthAndRegisterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231F89FB279DA75300331F4C /* AuthAndRegisterProtocol.swift */; };
 		2322F6E32790C4540002488C /* UploadUsingURLSessionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2322F6E22790C4540002488C /* UploadUsingURLSessionAPI.swift */; };
 		23266F9A277882E300F73072 /* Loger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23266F99277882E300F73072 /* Loger.swift */; };
 		232B41CA2798A056001B7189 /* ProductDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B41C92798A056001B7189 /* ProductDescriptionViewController.swift */; };
@@ -158,9 +161,10 @@
 		2315AF58277A1762001086DF /* HomeworkCallFromOneToSix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkCallFromOneToSix.swift; sourceTree = "<group>"; };
 		2315AF5A277A5192001086DF /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		2315AF5D277A68CE001086DF /* AuthRegistrationAndWorkWithProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRegistrationAndWorkWithProducts.swift; sourceTree = "<group>"; };
-		2315AF60277A6CB5001086DF /* AuthAndRegisterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAndRegisterProtocol.swift; sourceTree = "<group>"; };
+		2315AF60277A6CB5001086DF /* UnCorrectLoginPaswordOrEmptyFieldProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnCorrectLoginPaswordOrEmptyFieldProtocol.swift; sourceTree = "<group>"; };
 		2319D7B3278F5FD000302AE3 /* AllProductsWithPromotionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsWithPromotionRequest.swift; sourceTree = "<group>"; };
 		2319D7B5278F5FEB00302AE3 /* AllProductsWithPromotionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsWithPromotionResponse.swift; sourceTree = "<group>"; };
+		231BD146279CB2D500AE671E /* CreatingReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingReviewViewController.swift; sourceTree = "<group>"; };
 		231C41CE27930C47005B1072 /* UploadProductImageToServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductImageToServerResponse.swift; sourceTree = "<group>"; };
 		231CCD0C2789AD0D0095BF37 /* ChangeDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDataViewController.swift; sourceTree = "<group>"; };
 		231DB097276FA2740004B26C /* AddProductsBasketRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductsBasketRequest.swift; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 		231E6B86278E21C00003DFA7 /* CreateAndLoadProductsToServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAndLoadProductsToServer.swift; sourceTree = "<group>"; };
 		231E6B88278E26830003DFA7 /* AllProductsSomeCategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsSomeCategoryRequest.swift; sourceTree = "<group>"; };
 		231E6B8A278E26B20003DFA7 /* AllProductsSomeCategoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsSomeCategoryResponse.swift; sourceTree = "<group>"; };
+		231F89F9279DA17C00331F4C /* DescriptionAndReviewsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndReviewsProtocol.swift; sourceTree = "<group>"; };
+		231F89FB279DA75300331F4C /* AuthAndRegisterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAndRegisterProtocol.swift; sourceTree = "<group>"; };
 		2322F6E22790C4540002488C /* UploadUsingURLSessionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadUsingURLSessionAPI.swift; sourceTree = "<group>"; };
 		23266F99277882E300F73072 /* Loger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loger.swift; sourceTree = "<group>"; };
 		232B41C92798A056001B7189 /* ProductDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDescriptionViewController.swift; sourceTree = "<group>"; };
@@ -381,9 +387,11 @@
 		2315AF5F277A6C91001086DF /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				2315AF60277A6CB5001086DF /* AuthAndRegisterProtocol.swift */,
+				2315AF60277A6CB5001086DF /* UnCorrectLoginPaswordOrEmptyFieldProtocol.swift */,
 				232FE348278857170050089B /* Storyboardable.swift */,
 				232FE344278855B30050089B /* Coordinator.swift */,
+				231F89F9279DA17C00331F4C /* DescriptionAndReviewsProtocol.swift */,
+				231F89FB279DA75300331F4C /* AuthAndRegisterProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -410,6 +418,7 @@
 				23FE156A27975D9B00B47E46 /* ProductsViewController.swift */,
 				232B41C92798A056001B7189 /* ProductDescriptionViewController.swift */,
 				232B41CD2798B403001B7189 /* ProductReviewsController.swift */,
+				231BD146279CB2D500AE671E /* CreatingReviewViewController.swift */,
 			);
 			path = ProductsViewControllers;
 			sourceTree = "<group>";
@@ -821,7 +830,7 @@
 				2308023F2794303E00014720 /* UploadAllCommentsOfProductRequest.swift in Sources */,
 				231DB0A8276FA3EA0004B26C /* Basket.swift in Sources */,
 				23473C9D275CE70C00089EBB /* RequestFactory.swift in Sources */,
-				2315AF61277A6CB5001086DF /* AuthAndRegisterProtocol.swift in Sources */,
+				2315AF61277A6CB5001086DF /* UnCorrectLoginPaswordOrEmptyFieldProtocol.swift in Sources */,
 				23091C02278ADC9A00C0CD71 /* UnCorrectURLViewController.swift in Sources */,
 				23473CAE275D07E300089EBB /* LogoutResult.swift in Sources */,
 				23473CB0275D0BAF00089EBB /* UserDataRequestFactory .swift in Sources */,
@@ -855,10 +864,12 @@
 				23266F9A277882E300F73072 /* Loger.swift in Sources */,
 				232FE347278856430050089B /* AuthAndRegisterCoordinator.swift in Sources */,
 				6610D3A22761DEC600B556F2 /* ProductData.swift in Sources */,
+				231BD147279CB2D500AE671E /* CreatingReviewViewController.swift in Sources */,
 				2305D88D2752AA9C006E1763 /* LoginViaPhoneNumberViewController.swift in Sources */,
 				23473CA6275CE77700089EBB /* ErrorParser.swift in Sources */,
 				23091C06278B0DBB00C0CD71 /* CollectionViewCellForMainVC.swift in Sources */,
 				2308024A27946E0400014720 /* CategoryRequestFactory.swift in Sources */,
+				231F89FC279DA75300331F4C /* AuthAndRegisterProtocol.swift in Sources */,
 				231E6B87278E21C00003DFA7 /* CreateAndLoadProductsToServer.swift in Sources */,
 				232FE3532788CD570050089B /* BasketViewController.swift in Sources */,
 				23473CA1275CE72C00089EBB /* User.swift in Sources */,
@@ -875,6 +886,7 @@
 				232FE34D2788975E0050089B /* MainViewController.swift in Sources */,
 				231C41CF27930C47005B1072 /* UploadProductImageToServerResponse.swift in Sources */,
 				66A7F9192760DAD900982A81 /* OneItemOfCatalogData.swift in Sources */,
+				231F89FA279DA17D00331F4C /* DescriptionAndReviewsProtocol.swift in Sources */,
 				230B69C32799F716003E2301 /* TableViewCellForProductReviewsVC.swift in Sources */,
 				23473C99275CE6E900089EBB /* AuthRequestFactory.swift in Sources */,
 				232FE349278857170050089B /* Storyboardable.swift in Sources */,

@@ -9,8 +9,9 @@ import UIKit
 
 class LoginViaEmailViewController: UIViewController, Storyboardable {
     
-    weak var coordinator: AuthAndRegisterCoordinator?
+    var coordinator: AuthAndRegisterProtocol?
     weak var tabBarVC: CreateTabBarController?
+    var isCreatingReview = false
     
     private let homeworkCallFromOneToSix = HomeworkCallFromOneToSix()
     private let authAndRegistration = AuthRegistrationAndWorkWithProducts()
@@ -25,18 +26,28 @@ class LoginViaEmailViewController: UIViewController, Storyboardable {
         guard let emailFromTextField = emailFromTextField.text, let passwordFromTextField = passwordFromTextField.text else {return}
         authAndRegistration.login(email: emailFromTextField, password: passwordFromTextField){ isCorrect in
             if isCorrect {
-                self.tabBarVC?.authAndRegisterCompleted()
-                let ttt = 0//Переход на слудующий экран
-            }
+                if self.isCreatingReview {
+                        DispatchQueue.main.async {
+                            guard let allVC = self.navigationController?.viewControllers else {return}
+                            for vc in allVC {
+                                if let productReviewsViewController = vc as? ProductReviewsViewController {
+                                    self.navigationController?.popViewController(animated: false)
+                                    productReviewsViewController.switchToCreatingReviewViewController()
+                                }
+                            }
+                        }
+                }
+                self.tabBarVC?.authAndRegisterCompleted(isCreatingReview: self.isCreatingReview)
+            }  
         }
     }
     
     @IBAction func turnToPhoneNumberAuth(_ sender: Any) {
-        coordinator?.openLoginViaPhotoNumberViewController()
+        coordinator?.openLoginViaPhoneNumberViewController(isCreatingReview: isCreatingReview)
     }
     
     @IBAction func registerButtonPressed(_ sender: Any) {
-        coordinator?.openRegisterViewController()
+        coordinator?.openRegisterViewController(isCreatingReview: isCreatingReview)
     }
     
     
@@ -97,7 +108,7 @@ class LoginViaEmailViewController: UIViewController, Storyboardable {
 }
 
 
-extension LoginViaEmailViewController: AuthAndRegisterProtocol {
+extension LoginViaEmailViewController: UnCorrectLoginPaswordOrEmptyFieldProtocol {
     func unCorrectLoginPaswordOrEmptyField() {
         outletLoginButton.isSelected = false
         let alertController = UIAlertController(title: "Ошибка",

@@ -68,7 +68,7 @@ class ChangeDataViewController: UIViewController, Storyboardable {
             
             authAndRegistration.changeData(newUser: newUser) { isCorrect in
                 if isCorrect {
-                    self.tabBarVC?.authAndRegisterCompleted()
+                    self.tabBarVC?.authAndRegisterCompleted(isCreatingReview: false)
                 }
             }
         }
@@ -214,7 +214,7 @@ extension ChangeDataViewController: UIPickerViewDelegate {
 
 //MARK: - Alert
 
-extension ChangeDataViewController: AuthAndRegisterProtocol {
+extension ChangeDataViewController: UnCorrectLoginPaswordOrEmptyFieldProtocol {
     func unCorrectLoginPaswordOrEmptyField() {
         outletChangeDataButton.isSelected = false
         let alertController = UIAlertController(title: "Ошибка",
