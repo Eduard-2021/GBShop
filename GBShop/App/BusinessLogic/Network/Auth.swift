@@ -12,7 +12,7 @@ class Auth: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
+    //let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
     
     init(
         errorParser: AbstractErrorParser,
@@ -26,31 +26,55 @@ class Auth: AbstractRequestFactory {
 
 extension Auth: AuthRequestFactory {
     func logout(idUser: Int, completionHandler: @escaping (AFDataResponse<LogoutResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = Logout(baseUrl: baseUrl, idUser: idUser)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
-    func login(userName: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
-        let requestModel = Login(baseUrl: baseUrl, login: userName, password: password)
+    func login(phoneNumber: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
+        let requestModel = LoginViaPhoneNumber(baseUrl: baseUrl, login: phoneNumber, password: password)
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
+    
+    func login(email: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
+        let requestModel = LoginViaEmail(baseUrl: baseUrl, login: email, password: password)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
 extension Auth {
-    struct Login: RequestRouter {
+    struct LoginViaPhoneNumber: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "login"
+        let path: String = "loginViaPhoneNumber"
         
         let login: String
         let password: String
         var parameters: Parameters? {
             return [
-                "userName": login,
+                "phoneNumber": login,
                 "password": password
             ]
         }
     }
+    
+    struct LoginViaEmail: RequestRouter {
+        let baseUrl: URL
+        let method: HTTPMethod = .post
+        let path: String = "loginViaEmail"
+        
+        let login: String
+        let password: String
+        var parameters: Parameters? {
+            return [
+                "email": login,
+                "password": password
+            ]
+        }
+    }
+    
     
     struct Logout: RequestRouter {
         let baseUrl: URL

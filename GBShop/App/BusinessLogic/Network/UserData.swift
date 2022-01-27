@@ -12,7 +12,8 @@ class UserData: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
+//    let baseUrl = URL(string: "http://secret-escarpment-71481.herokuapp.com/")!
+//    let baseUrl = URL(string: "http://127.0.0.1:8080/")!
     
     init(
         errorParser: AbstractErrorParser,
@@ -26,12 +27,20 @@ class UserData: AbstractRequestFactory {
 
 extension UserData: UserDataRequestFactory {
     func register(newUser: NewUser, completionHandler: @escaping (AFDataResponse<RegisterResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = RegisterUser(baseUrl: baseUrl, newUser: newUser)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
     func changeData(newUser: NewUser, completionHandler: @escaping (AFDataResponse<ChangeDataResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
         let requestModel = ChangeUserData(baseUrl: baseUrl, newUser: newUser)
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
+    
+    func numberOfUsers(completionHandler: @escaping (AFDataResponse<NumberOfUsersResult>) -> Void) {
+        guard let baseUrl = Constant.shared.baseURL else {return}
+        let requestModel = HowManyUsers(baseUrl: baseUrl)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -49,6 +58,7 @@ extension UserData {
                 "userName" : newUser.userName,
                 "password" : newUser.password,
                 "email" : newUser.email,
+                "phoneNumber" : newUser.phoneNumber,
                 "gender": newUser.gender,
                 "creditCard" : newUser.creditCard,
                 "bio" : newUser.bio
@@ -68,10 +78,21 @@ extension UserData {
                 "userName" : newUser.userName,
                 "password" : newUser.password,
                 "email" : newUser.email,
+                "phoneNumber" : newUser.phoneNumber,
                 "gender": newUser.gender,
                 "creditCard" : newUser.creditCard,
                 "bio" : newUser.bio
             ]
+        }
+    }
+    
+    struct HowManyUsers: RequestRouter {
+        let baseUrl: URL
+        let method: HTTPMethod = .post
+        let path: String = "howManyUsers"
+        
+        var parameters: Parameters? {
+            return [:]
         }
     }
     

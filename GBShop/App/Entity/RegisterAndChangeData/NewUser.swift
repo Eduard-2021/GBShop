@@ -12,8 +12,8 @@ struct NewUser: Codable {
     let userName: String
     let password: String
     let email: String
+    let phoneNumber: String
     let gender: String
     let creditCard: String
     let bio: String
-    
 }
