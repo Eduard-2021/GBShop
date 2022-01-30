@@ -39,9 +39,9 @@ extension Basket: BasketRequestFactory {
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
-    func payBasket(amountFundsOnAccount: Int, completionHandler: @escaping (AFDataResponse<PayBasketResponse>) -> Void) {
+    func payBasket(amountFundsOnAccount: Int, costOfDelivery: Int, completionHandler: @escaping (AFDataResponse<PayBasketResponse>) -> Void) {
         guard let baseUrl = Constant.shared.baseURL else {return}
-        let requestModel = PayBasket(baseUrl: baseUrl, amountFundsOnAccount: amountFundsOnAccount)
+        let requestModel = PayBasket(baseUrl: baseUrl, amountFundsOnAccount: amountFundsOnAccount,costOfDelivery: costOfDelivery)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -87,9 +87,11 @@ extension Basket {
         let path: String = "payBasket"
         
         var amountFundsOnAccount: Int
+        var costOfDelivery: Int
         var parameters: Parameters? {
             return [
-                "amountFundsOnAccount": amountFundsOnAccount
+                "amountFundsOnAccount": amountFundsOnAccount,
+                "costOfDelivery": costOfDelivery
             ]
         }
     }

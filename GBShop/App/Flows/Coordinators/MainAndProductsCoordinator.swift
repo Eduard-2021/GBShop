@@ -8,6 +8,7 @@
 import UIKit
 
 class MainAndProductsCoordinator: Coordinator, DescriptionAndReviewsProtocol {
+    
     var navigationController = UINavigationController()
     weak var tabBarVC: CreateTabBarController?
 
@@ -17,4 +18,8 @@ class MainAndProductsCoordinator: Coordinator, DescriptionAndReviewsProtocol {
         navigationController.pushViewController(vc, animated: false)
         return navigationController
     }
+    
+    
+    
+
 }

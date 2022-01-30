@@ -250,7 +250,7 @@ class HomeworkCallFromOneToSix {
     
     private func payBasket(amountFundsOnAccount: Int){
         let basket = requestFactory.makeBasketRequestFactory()
-        basket.payBasket(amountFundsOnAccount:amountFundsOnAccount) {response in
+        basket.payBasket(amountFundsOnAccount:amountFundsOnAccount, costOfDelivery: 0) {response in
             switch response.result {
             case .success(let data):
                 print("Товар оплачен успешно. У Вас на счету осталось: ", data.amountFundsOnAccount, "\n")

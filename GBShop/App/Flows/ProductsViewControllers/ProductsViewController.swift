@@ -7,18 +7,20 @@
 
 import UIKit
 
-class ProductsViewController: UIViewController, Storyboardable {
+class ProductsViewController: UIViewController, Storyboardable, MessageProductPlacedBasketProtocol {
     
     let convertingImageToDataFormat = ConvertingImageToDataFormat()
     let authRegistrationAndWorkWithProducts = AuthRegistrationAndWorkWithProducts()
     var allProducts = [OneProduct]()
     let createAndLoadProductsToServer = CreateAndLoadProductsToServer()
+    var isBuyButtonPressed = false
     
     let uploadUsingURLSessionAPI = UploadUsingURLSessionAPI()
     var idCategory: Int?
     var categoryName: String?
     
     weak var coordinator: CatalogAndProductsCoordinator?
+    let workWithBasket = WorkWithBasket()
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -59,6 +61,63 @@ class ProductsViewController: UIViewController, Storyboardable {
         let mainColorForSearchBar = UIColor(red: 126/255, green: 187/255, blue: 59/255, alpha: 1)
         searchBar.setPlaceholderTextColorTo(textColor: mainColorForSearchBar, placeholderTextColor: UIColor.gray, backgroundColor: UIColor.white, leftViewColor: mainColorForSearchBar)
     }
+    
+    
+    func messageProductPlacedBasket(product: OneProduct) {
+        if !isBuyButtonPressed {
+            
+            /*
+            //Работа с использованием синглтона для формирования корзины
+            if let index = Constant.shared.selectedProducts.firstIndex(where: {$0.0.idProduct == product.idProduct}) {
+                Constant.shared.selectedProducts[index].1 += 1
+            } else {
+                Constant.shared.selectedProducts.append((product,1))
+            }
+             */
+            
+            workWithBasket.addProductsBasket(
+                productToAdd: AddProductToBasketRequest(idProduct: product.idProduct, productsNumber: 1)){}
+            
+            isBuyButtonPressed = true
+            let messageLabel = UILabel()
+            let highOfMessage: CGFloat = 40
+            let edgeDistanceForMessage: CGFloat = 20
+            let liftingHighOfMessage: CGFloat = 230
+            let cornerRadius: CGFloat = 13
+            
+            messageLabel.backgroundColor = .gray
+            messageLabel.textColor = .white
+            messageLabel.text = "   Товар добавлен в конзину"
+            messageLabel.frame = CGRect(x: edgeDistanceForMessage, y: view.bounds.height + highOfMessage, width: self.view.bounds.width - edgeDistanceForMessage*2, height: highOfMessage)
+            
+            messageLabel.layer.masksToBounds = true
+            messageLabel.layer.cornerRadius = cornerRadius
+            messageLabel.alpha = 0
+            
+            view.addSubview(messageLabel)
+            
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           options: [.curveEaseIn],
+                           animations: {
+                messageLabel.frame = CGRect(x: edgeDistanceForMessage, y: self.view.bounds.height - liftingHighOfMessage, width: self.view.bounds.width - edgeDistanceForMessage*2, height: highOfMessage)
+                messageLabel.alpha = 1
+            },
+                           completion: { _ in
+                UIView.animate(withDuration: 0.5,
+                               delay: 2,
+                               options: [.curveEaseIn],
+                               animations: {
+                    messageLabel.frame = CGRect(x: edgeDistanceForMessage, y: self.view.bounds.height + highOfMessage, width: self.view.bounds.width - edgeDistanceForMessage*2, height: highOfMessage)
+                    messageLabel.alpha = 0
+                },completion: { _ in
+                    self.isBuyButtonPressed = false
+                })
+            })
+        }
+    }
+    
+    
 }
 
 
@@ -73,6 +132,7 @@ extension ProductsViewController: UICollectionViewDelegate, UICollectionViewData
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCellForMainVC", for: indexPath) as? CollectionViewCellForMainVC else {return UICollectionViewCell()}
                 
         cell.config(oneProduct: allProducts[indexPath.row])
+        cell.delegate = self
         
         return cell
     }

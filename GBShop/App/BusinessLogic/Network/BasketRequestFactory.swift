@@ -14,7 +14,7 @@ protocol BasketRequestFactory {
     
     func deleteProductsBasket(productToDelete: DeleteProductFromBasketRequest, completionHandler: @escaping (AFDataResponse<DeleteProductFromBasketResponse>) -> Void)
     
-    func payBasket(amountFundsOnAccount: Int, completionHandler: @escaping (AFDataResponse<PayBasketResponse>) -> Void)
+    func payBasket(amountFundsOnAccount: Int, costOfDelivery: Int, completionHandler: @escaping (AFDataResponse<PayBasketResponse>) -> Void)
     
     func getBasket(completionHandler: @escaping (AFDataResponse<GetBasketResponse>) -> Void)
     
