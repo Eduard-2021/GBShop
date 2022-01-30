@@ -9,8 +9,9 @@ import UIKit
 
 class ViewController: UIViewController, Storyboardable {
     
-    weak var coordinator: AuthAndRegisterCoordinator?
+    var coordinator: AuthAndRegisterProtocol?
     weak var tabBarVC: CreateTabBarController?
+    var isCreatingReview = false
     
     private let homeworkCallFromOneToSix = HomeworkCallFromOneToSix()
     private let authAndRegistration = AuthRegistrationAndWorkWithProducts()
@@ -26,7 +27,7 @@ class ViewController: UIViewController, Storyboardable {
     
     
     @IBAction func turnToEmailAuth(_ sender: Any) {
-        coordinator?.openLoginViaEmailViewController()
+        coordinator?.openLoginViaEmailViewController(isCreatingReview: isCreatingReview)
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
@@ -37,10 +38,21 @@ class ViewController: UIViewController, Storyboardable {
         
         let fullPhoneNumber = countryCode + " " + phoneNumberFromTextField
         authAndRegistration.login(phoneNumber: fullPhoneNumber, password: passwordFromTextField){ isCorrect in
+            
             if isCorrect {
-                self.tabBarVC?.authAndRegisterCompleted()
-                let ttt = 0//Переход на слудующий экран
-            }
+                if self.isCreatingReview {
+                        DispatchQueue.main.async {
+                            guard let allVC = self.navigationController?.viewControllers else {return}
+                            for vc in allVC {
+                                if let productReviewsViewController = vc as? ProductReviewsViewController {
+                                    self.navigationController?.popViewController(animated: false)
+                                    productReviewsViewController.switchToCreatingReviewViewController()
+                                }
+                            }
+                        }
+                }
+                self.tabBarVC?.authAndRegisterCompleted(isCreatingReview: self.isCreatingReview)
+            }  
         }
     }
     
@@ -49,11 +61,9 @@ class ViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func registerButtonPressed(_ sender: Any) {
-        coordinator?.openRegisterViewController()
+        coordinator?.openRegisterViewController(isCreatingReview: isCreatingReview)
     }
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         selectCountryPickerView.dataSource = self
@@ -150,7 +160,7 @@ extension ViewController: UIPickerViewDelegate {
 }
 
 
-extension ViewController: AuthAndRegisterProtocol {
+extension ViewController: UnCorrectLoginPaswordOrEmptyFieldProtocol {
     func unCorrectLoginPaswordOrEmptyField() {
         outletLoginButton.isSelected = false
         let alertController = UIAlertController(title: "Ошибка",

@@ -70,7 +70,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCellForCatalogVC", for: indexPath) as! CollectionViewCellForCatalogVC
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCellForCatalogVC", for: indexPath) as? CollectionViewCellForCatalogVC else {return UICollectionViewCell()}
         cell.config(category: allCategories[indexPath.row])
         
         return cell
@@ -83,7 +83,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         let numberCol = 2
         
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {return CGSize()}
         let totalSpace = flowLayout.sectionInset.left
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(numberCol - 1))

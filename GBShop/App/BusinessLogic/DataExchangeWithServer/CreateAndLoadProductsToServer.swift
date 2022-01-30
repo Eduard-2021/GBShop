@@ -31,7 +31,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Антон",
                             commentDate: "12.12.21",
-                            comment: "Вкусная пасха")
+                            comment: "Вкусная пасха",
+                            score: 4.5,
+                            liked: "Понравился запах",
+                            noLiked: "",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 4,
                        productImage: imagesOfProductInDataFormat[0],
@@ -46,7 +50,12 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Алина",
                             commentDate: "22.12.21",
-                            comment: "Очень рекомендую")
+                            comment: "Очень рекомендую",
+                            score: 5.0,
+                            liked: "Вкус не повторимый",
+                            noLiked: "",
+                            userExperienсe:"Месяц"
+                        )
                        ],
                        idCategory: 3,
                        productImage: imagesOfProductInDataFormat[1],
@@ -61,7 +70,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Леонид",
                             commentDate: "10.12.21",
-                            comment: "Интересное решение")
+                            comment: "Интересное решение",
+                            score: 4.0,
+                            liked: "Мясо хорошего качества",
+                            noLiked: "",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 3,
                        productImage: imagesOfProductInDataFormat[2],
@@ -76,7 +89,20 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Катя",
                             commentDate: "01.12.21",
-                            comment: "Дорого")
+                            comment: "Сыр не плохой, но дорогой",
+                            score: 3.5,
+                            liked: "Понравился запах",
+                            noLiked: "Дорого",
+                            userExperienсe:"10 дней"),
+                        OneComment(
+                            idComment: UUID(),
+                            commentatorName: "Антон",
+                            commentDate: "02.12.21",
+                            comment: "Сыр слишком горький",
+                            score: 2.5,
+                            liked: "Цвет",
+                            noLiked: "Дорого",
+                            userExperienсe:"1 день")
                        ],
                        idCategory: 5,
                        productImage: imagesOfProductInDataFormat[3],
@@ -91,7 +117,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Лена",
                             commentDate: "02.12.21",
-                            comment: "Вкусно")
+                            comment: "Вкусно",
+                            score: 4.5,
+                            liked: "Хорошо пропеченный",
+                            noLiked: "",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 8,
                        productImage: imagesOfProductInDataFormat[4],
@@ -106,7 +136,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Сергей",
                             commentDate: "05.12.21",
-                            comment: "Очень сладкая!")
+                            comment: "Очень сладкая!",
+                            score: 5.0,
+                            liked: "Понравился вкус",
+                            noLiked: "",
+                            userExperienсe:"Одна неделя")
                        ],
                        idCategory: 6,
                        productImage: imagesOfProductInDataFormat[5],
@@ -121,7 +155,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Сергей",
                             commentDate: "15.12.21",
-                            comment: "Дорогой? но хороший корм")
+                            comment: "Дорогой, но хороший корм",
+                            score: 4.0,
+                            liked: "Кошки в восторге",
+                            noLiked: "",
+                            userExperienсe:"1 год")
                        ],
                        idCategory: 7,
                        productImage: imagesOfProductInDataFormat[6],
@@ -136,7 +174,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Анна",
                             commentDate: "17.12.21",
-                            comment: "Вкусно, но мало")
+                            comment: "Вкусно, но мало",
+                            score: 4.0,
+                            liked: "Понравился запах",
+                            noLiked: "Мало",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 2,
                        productImage: imagesOfProductInDataFormat[7],
@@ -151,7 +193,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Роман",
                             commentDate: "17.12.21",
-                            comment: "Отличное пиво")
+                            comment: "Отличное пиво",
+                            score: 5.0,
+                            liked: "Нравится вкус",
+                            noLiked: "",
+                            userExperienсe:"Много лет")
                        ],
                        idCategory: 6,
                        productImage: imagesOfProductInDataFormat[8],
@@ -166,7 +212,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Денис",
                             commentDate: "17.12.21",
-                            comment: "Это пиво очень нравится")
+                            comment: "Это пиво очень нравится",
+                            score: 4.5,
+                            liked: "Благородный вкус",
+                            noLiked: "",
+                            userExperienсe:"Месяц")
                        ],
                        idCategory: 1,
                        productImage: imagesOfProductInDataFormat[9],
@@ -181,7 +231,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Петр",
                             commentDate: "17.12.21",
-                            comment: "Класс!")
+                            comment: "Класс!",
+                            score: 4.0,
+                            liked: "Мое любимое",
+                            noLiked: "",
+                            userExperienсe:"Много лет")
                        ],
                        idCategory: 12,
                        productImage: imagesOfProductInDataFormat[10],
@@ -196,7 +250,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Анна",
                             commentDate: "20.12.21",
-                            comment: "Рекомендую на Новый год!")
+                            comment: "Рекомендую на Новый год!",
+                            score: 4.5,
+                            liked: "Красиво упакован",
+                            noLiked: "",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 12,
                        productImage: imagesOfProductInDataFormat[11],
@@ -211,7 +269,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Семен",
                             commentDate: "21.12.21",
-                            comment: "Рекомендую на Новый год!")
+                            comment: "Рекомендую на Новый год!",
+                            score: 4.0,
+                            liked: "Понравился запах",
+                            noLiked: "",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 11,
                        productImage: imagesOfProductInDataFormat[12],
@@ -226,7 +288,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Катя",
                             commentDate: "22.12.21",
-                            comment: "Немного кисловата")
+                            comment: "Немного кисловата",
+                            score: 3.5,
+                            liked: "",
+                            noLiked: "Кисловата",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 11,
                        productImage: imagesOfProductInDataFormat[13],
@@ -241,7 +307,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Елена",
                             commentDate: "24.12.21",
-                            comment: "Отлично подхоит для супа")
+                            comment: "Отлично подхоит для супа",
+                            score: 4.0,
+                            liked: "Хорошо варится",
+                            noLiked: "Дороговато",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 10,
                        productImage: imagesOfProductInDataFormat[14],
@@ -256,7 +326,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Оксана",
                             commentDate: "26.12.21",
-                            comment: "Знаю, что полезна")
+                            comment: "Знаю, что полезна",
+                            score: 4.5,
+                            liked: "Понравился запах",
+                            noLiked: "",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 60,
                        productImage: imagesOfProductInDataFormat[15],
@@ -271,7 +345,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Оксана",
                             commentDate: "27.12.21",
-                            comment: "Очень чистая")
+                            comment: "Очень чистая",
+                            score: 4.5,
+                            liked: "",
+                            noLiked: "",
+                            userExperienсe:"Месяц")
                        ],
                        idCategory: 9,
                        productImage: imagesOfProductInDataFormat[16],
@@ -286,7 +364,11 @@ class CreateAndLoadProductsToServer {
                             idComment: UUID(),
                             commentatorName: "Ангелина",
                             commentDate: "28.12.21",
-                            comment: "Очень чистая")
+                            comment: "Очень вкусное",
+                            score: 5.0,
+                            liked: "Понравился запах",
+                            noLiked: "",
+                            userExperienсe:"Один день")
                        ],
                        idCategory: 9,
                        productImage: imagesOfProductInDataFormat[17],
@@ -302,11 +384,16 @@ class CreateAndLoadProductsToServer {
                 for product in products {
                     for comment in product.commentList {
                         newComments.append(NewComment(
-                                        idProduct: product.idProduct,
-                                        commentatorName: comment.commentatorName,
-                                        commentDate: comment.commentDate,
-                                        comment: comment.comment)
-                                           )
+                            idProduct: product.idProduct,
+                            commentatorName: comment.commentatorName,
+                            commentDate: comment.commentDate,
+                            comment: comment.comment,
+                            score: comment.score,
+                            liked: comment.liked,
+                            noLiked: comment.noLiked,
+                            userExperienсe: comment.userExperienсe
+                        )
+                        )
                     }
                 }
                     

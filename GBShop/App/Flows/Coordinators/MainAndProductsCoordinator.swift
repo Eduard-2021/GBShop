@@ -1,20 +1,19 @@
 //
-//  AppCoordinator.swift
+//  MainAndProductsCoordinator.swift
 //  GBShop
 //
-//  Created by Eduard on 07.01.2022.
+//  Created by Eduard on 19.01.2022.
 //
 
 import UIKit
 
-class AuthAndRegisterCoordinator: Coordinator, AuthAndRegisterProtocol {
+class MainAndProductsCoordinator: Coordinator, DescriptionAndReviewsProtocol {
     var navigationController = UINavigationController()
-    var tabBarVC: CreateTabBarController?
+    weak var tabBarVC: CreateTabBarController?
 
     func start() -> UIViewController {
-        let vc = ViewController.createObject()
+        let vc = MainViewController.createObject()
         vc.coordinator = self
-        vc.tabBarVC = tabBarVC
         navigationController.pushViewController(vc, animated: false)
         return navigationController
     }

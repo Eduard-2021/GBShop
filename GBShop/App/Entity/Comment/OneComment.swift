@@ -12,6 +12,11 @@ struct OneComment: Codable {
     let commentatorName: String
     let commentDate: String
     let comment: String
+    let score: Double
+    let liked: String
+    let noLiked: String
+    let userExperienсe: String
+
 }
 
 

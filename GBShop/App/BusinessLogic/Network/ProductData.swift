@@ -37,7 +37,7 @@ extension ProductData: ProductRequestFactory {
     
     func getProductById(idProduct: Int, completionHandler: @escaping (AFDataResponse<OneProduct>) -> Void) {
         guard let baseUrl = Constant.shared.baseURL else {return}
-        let requestModel = GetProductByIdData(baseUrl: baseUrl, idProduct: idProduct)
+        let requestModel = GetProductById(baseUrl: baseUrl, idProduct: idProduct)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -92,7 +92,7 @@ extension ProductData {
         }
     }
     
-    struct GetProductByIdData: RequestRouter {
+    struct GetProductById: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
         let path: String = "getProductById"
@@ -100,7 +100,7 @@ extension ProductData {
         let idProduct: Int
         var parameters: Parameters? {
             return [
-                "idProduct" : [idProduct],
+                "idProduct" : idProduct,
             ]
         }
     }
