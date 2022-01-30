@@ -9,8 +9,9 @@ import UIKit
 
 class RegisterViewController: UIViewController, Storyboardable {
     
-    weak var coordinator: AuthAndRegisterCoordinator?
+    var coordinator: AuthAndRegisterProtocol?
     weak var tabBarVC: CreateTabBarController?
+    var isCreatingReview = false
     
     private let homeworkCallFromOneToSix = HomeworkCallFromOneToSix()
     private let authAndRegistration = AuthRegistrationAndWorkWithProducts()
@@ -81,9 +82,20 @@ class RegisterViewController: UIViewController, Storyboardable {
             Constant.shared.user = newUser
             
             authAndRegistration.register(newUser: newUser) { isCorrect in
+                
                 if isCorrect {
-                    self.tabBarVC?.authAndRegisterCompleted()
-                    let ttt = 0//Переход на слудующий экран
+                    if self.isCreatingReview {
+                            DispatchQueue.main.async {
+                                guard let allVC = self.navigationController?.viewControllers else {return}
+                                for vc in allVC {
+                                    if let productReviewsViewController = vc as? ProductReviewsViewController {
+                                        self.navigationController?.popViewController(animated: false)
+                                        productReviewsViewController.switchToCreatingReviewViewController()
+                                    }
+                                }
+                            }
+                    }
+                    self.tabBarVC?.authAndRegisterCompleted(isCreatingReview: self.isCreatingReview)
                 }
             }
         }
@@ -207,7 +219,7 @@ extension RegisterViewController: UIPickerViewDelegate {
 }
 
 
-extension RegisterViewController: AuthAndRegisterProtocol {
+extension RegisterViewController: UnCorrectLoginPaswordOrEmptyFieldProtocol {
     func unCorrectLoginPaswordOrEmptyField() {
         outletRegisterButton.isSelected = false
         let alertController = UIAlertController(title: "Ошибка",

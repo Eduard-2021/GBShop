@@ -49,7 +49,16 @@ class HomeworkCallFromOneToSix {
     
     private func setGetDeleteComments(){
         
-        let newComment = NewComment(idProduct: 123, commentatorName: "Сергей", commentDate: "19.12.21", comment: "Надежное изделие")
+        let newComment = NewComment(
+            idProduct: 123,
+            commentatorName: "Сергей",
+            commentDate: "19.12.21",
+            comment: "Надежное изделие",
+            score: 5.0,
+            liked: "Понравилось быстродействие",
+            noLiked: "",
+            userExperienсe:"Один день")
+
         getCommentList(idProduct: 123) {_ in}
         setNewComment(newComment: newComment) {isSuccess in
             if isSuccess {
@@ -241,7 +250,7 @@ class HomeworkCallFromOneToSix {
     
     private func payBasket(amountFundsOnAccount: Int){
         let basket = requestFactory.makeBasketRequestFactory()
-        basket.payBasket(amountFundsOnAccount:amountFundsOnAccount) {response in
+        basket.payBasket(amountFundsOnAccount:amountFundsOnAccount, costOfDelivery: 0) {response in
             switch response.result {
             case .success(let data):
                 print("Товар оплачен успешно. У Вас на счету осталось: ", data.amountFundsOnAccount, "\n")

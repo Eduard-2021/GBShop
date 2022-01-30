@@ -14,11 +14,17 @@ class Constant {
     var numberOfUsers = 0
     var isAuth = false
     var user: NewUser?
-//    var url = "http://127.0.0.1:8080/"
     var baseURL: URL?
+//    var selectedProducts = [(OneProduct, Int)]()
+    var whoCalledAuth: WhoCalledAuth = .authViewController
+    var account = 1000
 }
 
-
+enum WhoCalledAuth {
+    case authViewController
+    case basketViewController
+    case creatingReviewViewController
+}
 
 
 

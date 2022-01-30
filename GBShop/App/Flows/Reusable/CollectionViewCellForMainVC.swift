@@ -8,6 +8,9 @@
 import UIKit
 
 class CollectionViewCellForMainVC: UICollectionViewCell {
+    
+    var delegate: MessageProductPlacedBasketProtocol?
+    var product: OneProduct?
 
     @IBOutlet weak var productPictureImageView: UIImageView!
     @IBOutlet weak var productName: UILabel!
@@ -15,6 +18,12 @@ class CollectionViewCellForMainVC: UICollectionViewCell {
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var typeMeasureLabel: UILabel!
+    
+    @IBAction func buyButtonAction(_ sender: Any) {
+        guard let product = product else {return}
+        delegate?.messageProductPlacedBasket(product: product)
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,6 +36,7 @@ class CollectionViewCellForMainVC: UICollectionViewCell {
     }
     
     func config(oneProduct: OneProduct){
+        product = oneProduct
         productPictureImageView.image = UIImage(data: oneProduct.productImage)
         productName.text = oneProduct.productName
         costLabel.text = String(oneProduct.productPrice)
